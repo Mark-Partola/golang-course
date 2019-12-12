@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import homework1 "course/homework-1"
 
 func main() {
-	fmt.Println("Привет, мир!")
+	homework1.RunTask(3)
 }

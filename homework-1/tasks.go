@@ -25,7 +25,7 @@ func RunTask(num byte) {
 // Курс доллара задайте константой.
 func runTask1() {
 	fmt.Print("Please, input number: ")
-	count := io.ScanNumber()
+	count, _ := io.ScanNumber()
 	result := logic.ConvertFromRubToUsd(count)
 	fmt.Println(fmt.Sprintf("$%v = %v₽", count, result))
 }
@@ -35,13 +35,13 @@ func runTask1() {
 // Используйте тип данных float64 и функции из пакета math.
 func runTask2() {
 	fmt.Print("Please, input length of first cathet: ")
-	cathet1 := io.ScanNumber()
+	cathet1, _ := io.ScanNumber()
 	fmt.Print("Please, input length of second cathet: ")
-	cathet2 := io.ScanNumber()
+	cathet2, _ := io.ScanNumber()
 
-	hypotenuse := logic.GetHypotenuse(cathet1, cathet2)
-	perimeter := logic.GetPerimeter(cathet1, cathet2)
-	square := logic.GetSquare(cathet1, cathet2)
+	hypotenuse := logic.CalculateHypotenuse(cathet1, cathet2)
+	perimeter := logic.CalculatePerimeter(cathet1, cathet2)
+	square := logic.CalculateSquare(cathet1, cathet2)
 
 	fmt.Printf("Hypotenuse = %v\nPerimeter = %v\nSquare = %v", hypotenuse, perimeter, square)
 }
@@ -50,13 +50,13 @@ func runTask2() {
 // Найти сумму вклада через 5 лет.
 func runTask3() {
 	fmt.Print("Amount: ")
-	initialAmount := io.ScanNumber()
+	initialAmount, _ := io.ScanNumber()
 	fmt.Print("Interest rate: ")
-	interestRate := io.ScanNumber()
+	interestRate, _ := io.ScanNumber()
 	fmt.Print("Years: ")
-	years := io.ScanNumber()
+	years, _ := io.ScanNumber()
 
-	perspectiveAmount := logic.GetPerspectiveAmount(initialAmount, interestRate, years)
+	perspectiveAmount := logic.CalculatePerspectiveAmount(initialAmount, interestRate, years)
 
 	fmt.Printf("Amount %v in %v years with %v interest rate will be %v", initialAmount, years, interestRate, perspectiveAmount)
 }

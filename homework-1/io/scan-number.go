@@ -1,21 +1,20 @@
 package io
 
 import (
+	"errors"
 	"fmt"
-	"log"
 	"strconv"
 )
 
 // ScanNumber - Request CLI input for number
-func ScanNumber() float64 {
+func ScanNumber() (float64, error) {
 	var input string
 	fmt.Scan(&input)
 
 	num, err := strconv.ParseFloat(input, 64)
-
 	if err != nil {
-		log.Fatalln("Incorrect number")
+		return 0, errors.New("Cannot parse input")
 	}
 
-	return float64(num)
+	return num, nil
 }

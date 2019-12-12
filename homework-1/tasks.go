@@ -1,6 +1,7 @@
 package homework1
 
 import (
+	"course/common"
 	"course/homework-1/io"
 	"course/homework-1/logic"
 	"fmt"
@@ -8,16 +9,11 @@ import (
 
 // RunTask - perform hw1 task
 func RunTask(num byte) {
-	switch num {
-	case 1:
-		runTask1()
-	case 2:
-		runTask2()
-	case 3:
-		runTask3()
-	default:
-		panic("Incorrect task number")
-	}
+	common.RunTask(map[byte]func(){
+		1: runTask1,
+		2: runTask2,
+		3: runTask3,
+	}, num)
 }
 
 // Написать программу для конвертации рублей в доллары.

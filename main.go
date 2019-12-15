@@ -1,7 +1,7 @@
 package main
 
-import homework1 "course/homework-1"
+import homework2 "course/homework-2"
 
 func main() {
-	homework1.RunTask(3)
+	homework2.RunTask(4)
 }

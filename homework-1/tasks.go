@@ -2,7 +2,7 @@ package homework1
 
 import (
 	"course/common"
-	"course/homework-1/io"
+	"course/common/io"
 	"course/homework-1/logic"
 	"fmt"
 )

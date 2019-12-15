@@ -15,7 +15,7 @@ func CheckMultiplicity(num int, divider int) (bool, error) {
 }
 
 // ForEachFibonacci -
-func ForEachFibonacci(last uint, handler func(big.Int, uint)) {
+func ForEachFibonacci(last uint, handler func(*big.Int, uint)) {
 	cache := [2]big.Int{
 		*big.NewInt(0),
 		*big.NewInt(1),
@@ -23,7 +23,7 @@ func ForEachFibonacci(last uint, handler func(big.Int, uint)) {
 
 	for i := uint(0); i < last; i++ {
 		if i <= 1 {
-			handler(*big.NewInt(int64(i)), i)
+			handler(big.NewInt(int64(i)), i)
 			continue
 		}
 
@@ -31,13 +31,13 @@ func ForEachFibonacci(last uint, handler func(big.Int, uint)) {
 		cache[0] = cache[1]
 		cache[1] = next
 
-		handler(cache[1], i)
+		handler(&cache[1], i)
 	}
 }
 
 // CalculateSimpleNumbersUpTo -
 func CalculateSimpleNumbersUpTo(num uint) []int {
-	list := []int{}
+	list := make([]int, 0, num)
 	idx := 1
 
 	for {
@@ -48,7 +48,7 @@ func CalculateSimpleNumbersUpTo(num uint) []int {
 			list = append(list, idx)
 		}
 
-		if len(list) == 100 {
+		if len(list) == int(num) {
 			break
 		}
 

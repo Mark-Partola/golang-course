@@ -21,9 +21,15 @@ func RunTask(num byte) {
 // Написать функцию, которая определяет, четное ли число.
 func runTask1() {
 	fmt.Print("Enter number: ")
-	num, _ := io.ScanNumber()
+	num, err := io.ScanNumber()
+	if err != nil {
+		panic("Incorrect number")
+	}
 
-	isEven, _ := logic.CheckMultiplicity(int(num), 2)
+	isEven, err := logic.CheckMultiplicity(int(num), 2)
+	if err != nil {
+		panic(err)
+	}
 
 	if isEven {
 		fmt.Printf("Number %v is even", num)
@@ -35,9 +41,15 @@ func runTask1() {
 // Написать функцию, которая определяет, делится ли число без остатка на 3
 func runTask2() {
 	fmt.Print("Enter number: ")
-	num, _ := io.ScanNumber()
+	num, err := io.ScanNumber()
+	if err != nil {
+		panic("Incorrect number")
+	}
 
-	isMultipleBy3, _ := logic.CheckMultiplicity(int(num), 3)
+	isMultipleBy3, err := logic.CheckMultiplicity(int(num), 3)
+	if err != nil {
+		panic(err)
+	}
 
 	if isMultipleBy3 {
 		fmt.Printf("Number %v is multiple by 3", num)
@@ -50,9 +62,12 @@ func runTask2() {
 // Следить за переполнением
 func runTask3() {
 	fmt.Print("Enter number: ")
-	num, _ := io.ScanNumber()
+	num, err := io.ScanNumber()
+	if err != nil {
+		panic("Incorrect number")
+	}
 
-	logic.ForEachFibonacci(uint(num), func(value big.Int, idx uint) {
+	logic.ForEachFibonacci(uint(num), func(value *big.Int, idx uint) {
 		fmt.Println(fmt.Sprintf("%v: %v", idx+1, value.String()))
 	})
 }

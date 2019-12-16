@@ -1,7 +1,16 @@
 package main
 
-import treeutil "course/tree-util"
+import (
+	treeutil "course/tree-util"
+	"os"
+)
 
 func main() {
-	treeutil.PrintTree(".")
+	args := os.Args[1:]
+
+	if len(args) == 0 {
+		panic("You must provide directory in arguments")
+	}
+
+	treeutil.PrintTree(args[0])
 }

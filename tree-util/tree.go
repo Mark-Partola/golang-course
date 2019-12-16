@@ -14,39 +14,40 @@ const (
 	strictLine          = "─"
 	parentConnector     = "│"
 	lastParentConnector = " "
+	space               = "  "
 )
 
 // PrintTree -
-func PrintTree(path string) {
-	renderLevel(path, []bool{})
+func PrintTree(path string) error {
+	return renderLevel(path, []bool{})
 }
 
-// TODO: defer close file
-// TODO: don't panic
-// TODO: simplify
-func renderLevel(path string, history []bool) {
+func renderLevel(path string, history []bool) error {
 	path, err := filepath.Abs(path)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	file, err := os.Open(path)
 	if err != nil {
-		panic(fmt.Sprintf("Cannot read file or directory %v", err))
+		return fmt.Errorf("Cannot read file or directory %v", err)
 	}
+	defer file.Close()
 
 	stat, err := file.Stat()
 	if err != nil {
-		panic(fmt.Sprintf("Cannot read stat of file or directory %v", err))
+		return fmt.Errorf("Cannot read stat of file or directory %v", err)
 	}
 
 	if stat.IsDir() {
-		connector := calcConnector(history)
-		renderLine(connector, stat)
+		if len(history) != 0 {
+			connector := calcConnector(history)
+			renderLine(connector, stat)
+		}
 
 		files, err := file.Readdirnames(-1)
 		if err != nil {
-			panic(fmt.Sprintf("Cannot retrieve directory files %v", err))
+			return fmt.Errorf("Cannot retrieve directory files %v", err)
 		}
 
 		sort.Strings(files)
@@ -64,6 +65,8 @@ func renderLevel(path string, history []bool) {
 		connector := calcConnector(history)
 		renderLine(connector, stat)
 	}
+
+	return nil
 }
 
 func calcConnector(history []bool) string {
@@ -71,18 +74,18 @@ func calcConnector(history []bool) string {
 	for idx, isLast := range history {
 		if idx == len(history)-1 {
 			if isLast {
-				historyConnector += endConnector
+				historyConnector += space + endConnector
 			} else {
-				historyConnector += middleConnector
+				historyConnector += space + middleConnector
 			}
 
 			break
 		}
 
 		if isLast {
-			historyConnector += lastParentConnector
+			historyConnector += space + lastParentConnector
 		} else {
-			historyConnector += parentConnector
+			historyConnector += space + parentConnector
 		}
 	}
 

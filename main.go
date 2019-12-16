@@ -1,7 +1,7 @@
 package main
 
-import homework2 "course/homework-2"
+import treeutil "course/tree-util"
 
 func main() {
-	homework2.RunTask(4)
+	treeutil.PrintTree(".")
 }

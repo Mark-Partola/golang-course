@@ -18,13 +18,13 @@ type Record struct {
 }
 
 // Add -
-func (dict Dictionary) Add(record Record) {
-	dict[record.Name] = record.Phones
+func (dict *Dictionary) Add(record Record) {
+	(*dict)[record.Name] = record.Phones
 }
 
 // Append -
-func (dict Dictionary) Append(record Record) {
-	dict[record.Name] = append(dict[record.Name], record.Phones...)
+func (dict *Dictionary) Append(record Record) {
+	(*dict)[record.Name] = append((*dict)[record.Name], record.Phones...)
 }
 
 func (dict Dictionary) String() string {
@@ -41,7 +41,7 @@ func (dict Dictionary) String() string {
 }
 
 // Persist -
-func (dict Dictionary) Persist(fileName string) error {
+func (dict *Dictionary) Persist(fileName string) error {
 	value, err := json.Marshal(dict)
 	if err != nil {
 		return err
@@ -65,7 +65,7 @@ func (dict Dictionary) Persist(fileName string) error {
 }
 
 // Restore -
-func (dict Dictionary) Restore(fileName string) error {
+func (dict *Dictionary) Restore(fileName string) error {
 	file, err := os.Open(fileName)
 	if err != nil {
 		return err

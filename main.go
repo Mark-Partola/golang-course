@@ -1,7 +1,16 @@
 package main
 
-import homework2 "course/homework-2"
+import (
+	treeutil "course/tree-util"
+	"os"
+)
 
 func main() {
-	homework2.RunTask(4)
+	args := os.Args[1:]
+
+	if len(args) == 0 {
+		panic("You must provide directory in arguments")
+	}
+
+	treeutil.PrintTree(args[0])
 }
